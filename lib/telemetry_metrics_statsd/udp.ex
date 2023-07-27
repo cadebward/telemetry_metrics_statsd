@@ -17,7 +17,7 @@ defmodule TelemetryMetricsStatsd.UDP do
   @spec open(config()) ::
           {:ok, t()} | {:error, reason :: term()}
   def open(config) do
-    opts = [active: false]
+    opts = [:inet6, {:active, false}]
 
     opts =
       case config.host do

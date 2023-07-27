@@ -538,13 +538,13 @@ defmodule TelemetryMetricsStatsd do
 
   defp configure_host_resolution(%{host: host, port: port, host_resolution_interval: interval})
        when is_integer(interval) do
-    {:ok, hostent(h_addr_list: [ip | _ips])} = :inet.gethostbyname(host)
+    {:ok, hostent(h_addr_list: [ip | _ips])} = :inet.gethostbyname(host, :inet6)
     Process.send_after(self(), :resolve_host, interval)
     %{host: ip, port: port}
   end
 
   defp configure_host_resolution(%{host: host, port: port}) do
-    {:ok, hostent(h_addr_list: [ip | _ips])} = :inet.gethostbyname(host)
+    {:ok, hostent(h_addr_list: [ip | _ips])} = :inet.gethostbyname(host, :inet6)
     %{host: ip, port: port}
   end
 
